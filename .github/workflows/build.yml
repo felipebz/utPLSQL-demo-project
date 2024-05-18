@@ -3,24 +3,15 @@ name: Deploy and test
 on:
   push:
     branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
-
   workflow_dispatch:
-
-  repository_dispatch:
-    types: [utPLSQL-build]
 
 jobs:
   build:
+    runs-on: ubuntu-latest
 
     env:
-      UTPLSQL_VERSION: ${{matrix.utplsql-version}}
-
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        utplsql-version: [develop, v3.1.13]
+      UTPLSQL_VERSION: v3.1.14
+      UTPLSQL_CLI_VERSION: 3.1.9
 
     services:
       oracle:
@@ -37,15 +28,15 @@ jobs:
           --health-retries 10
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Install utPLSQL ${{matrix.utplsql-version}}
+      - name: Install utPLSQL
         run: echo Installing ${UTPLSQL_VERSION} && sh ${{ github.workspace }}/scripts/1_install_utplsql.sh
 
       - name: Install utPLSQL-cli
-        run: curl -Lk -o utPLSQL-cli.zip "https://github.com/utPLSQL/utPLSQL-cli/releases/download/3.1.9/utPLSQL-cli.zip" && unzip utPLSQL-cli.zip && chmod -R u+x utPLSQL-cli
+        run: curl -Lk -o utPLSQL-cli.zip "https://github.com/utPLSQL/utPLSQL-cli/releases/download/${UTPLSQL_CLI_VERSION}/utPLSQL-cli.zip" && unzip utPLSQL-cli.zip && chmod -R u+x utPLSQL-cli
 
       - name: Install demo project
         run: sh ${{ github.workspace }}/scripts/2_install_demo_project.sh
@@ -56,25 +47,8 @@ jobs:
       - name: Run unit tests
         run: sh ${{ github.workspace }}/scripts/4_run_tests.sh
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  slack-workflow-status:
-    if: always()
-    name: Post Workflow Status To Slack
-    needs: [ build ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Slack Workflow Notification
-        uses: Gamesight/slack-workflow-status@master
-        with:
-          # Required Input
-          repo_token: ${{secrets.GITHUB_TOKEN}}
-          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
-          # Optional Input
-          name: 'Github Actions[bot]'
-          icon_url: 'https://octodex.github.com/images/mona-the-rivetertocat.png'
-
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
