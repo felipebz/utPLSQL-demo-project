@@ -18,4 +18,4 @@ The build process consists of following steps:
 - Install [unit tests](test/install.sh)
 - Download and unzip the [utplsql-cli](https://github.com/utPLSQL/utPLSQL-cli) project binaries
 - [Execute all tests](test/run.sh) on the project
-- Publish [code coverage](https://sonarqube.felipezorzo.com.br/component_measures?metric=coverage&id=utPLSQL-demo-project) to the [SonarQube + ZPA demo instance](https://sonarqube.felipezorzo.com.br/) instance
+- Publish [test results](https://sonarqube.felipezorzo.com.br/component_measures?metric=tests&id=utPLSQL-demo-project) and [code coverage](https://sonarqube.felipezorzo.com.br/component_measures?metric=coverage&id=utPLSQL-demo-project) to the [SonarQube + ZPA demo instance](https://sonarqube.felipezorzo.com.br/) instance
