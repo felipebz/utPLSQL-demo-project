@@ -5,7 +5,7 @@
 
 This is a demo project using [utPLSQL v3](https://github.com/utPLSQL/utPLSQL) for unit testing of Oracle PL/SQL code.
 
-The project is also taking benefit of Continuous Integration with GitHub Actions as well as static code analysis, code coverage and test results reporting using SonarQube + [ZPA](https://github.com/felipebz/zpa).
+The project is also taking benefit of Continuous Integration with GitHub Actions as well as static code analysis, code coverage and test results reporting using SonarQube + [ZPA](https://felipezorzo.com.br/zpa).
 
 With every commit made to the github repository, a build job is executed using [GitHub Actions](https://github.com/felipebz/utPLSQL-demo-project/actions).
 
