@@ -7,7 +7,7 @@ This is a demo project using [utPLSQL v3](https://github.com/utPLSQL/utPLSQL) fo
 
 The project is also taking benefit of Continuous Integration with GitHub Actions as well as static code analysis, code coverage and test results reporting using SonarQube + [ZPA](https://felipezorzo.com.br/zpa).
 
-With every commit made to the github repository, a build job is executed using [GitHub Actions](https://github.com/felipebz/utPLSQL-demo-project/actions).
+With every commit made to the GitHub repository, a build job is executed using [GitHub Actions](https://github.com/felipebz/utPLSQL-demo-project/actions).
 
 The build process consists of following steps:
 - Download Oracle Database 21c XE
