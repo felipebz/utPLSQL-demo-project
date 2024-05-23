@@ -6,3 +6,9 @@
 ## Directory-based project format:
 .idea/
 
+.scannerwork/
+utPLSQL/
+utPLSQL-cli/
+utPLSQL-cli.zip
+coverage.xml
+test_results.xml
